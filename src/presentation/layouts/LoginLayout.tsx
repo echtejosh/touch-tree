@@ -32,10 +32,7 @@ export default function LoginLayout(): ReactElement {
                     sx={{
                         ...!theme.subset
                             ? {
-                                backgroundImage: `url(${logoBackground})`,
-                                backgroundSize: 'cover',
-                                backgroundPosition: 'center',
-                                backgroundRepeat: 'no-repeat',
+                                background: themePalette.background.dark,
                             }
                             : {
                                 background: !theme.subset ? themePalette.background.dark : theme.themeDark,
