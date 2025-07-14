@@ -7,7 +7,6 @@ import { useTheme } from '@mui/material/styles';
 import { NavbarLogo } from 'presentation/components/navbar';
 import { themePalette } from 'presentation/theme';
 import { getCurrentTheme } from 'presentation/themes/themeSelect';
-import logoBackground from 'presentation/assets/login-background.png';
 
 export default function LoginLayout(): ReactElement {
     const { breakpoints } = useTheme();
