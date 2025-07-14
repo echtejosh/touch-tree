@@ -1,0 +1,88 @@
+import React from 'react';
+import { Box, Column, Row } from 'presentation/components/layout';
+import Container from 'infrastructure/services/Container';
+import { useForm, useInvalidateQuery } from 'presentation/hooks';
+import { Button, Typography } from '@mui/material';
+import { DialogOptions } from 'presentation/providers/DialogProvider';
+import { SubmitButton } from 'presentation/components';
+import { themePalette } from 'presentation/theme';
+import UpdateEditorPodsUseCase from 'application/usecases/newsstand/editor/UpdateEditorPodsUseCase';
+import GetEditorPodsUseCase from 'application/usecases/newsstand/editor/GetEditorPodsUseCase';
+import { GetMetricsUseCase } from 'application/usecases/metrics/GetMetricsUseCase';
+import { EditorPodModel } from 'domain/models/newsstand/NewsstandModel';
+
+interface DeletePodsModalProps extends DialogOptions {
+    setPods: (pods: EditorPodModel[]) => void;
+}
+
+export default function DeletePodsModal({
+    onClose,
+    setPods,
+}: DeletePodsModalProps) {
+    const updateEditorPodsUseCase = Container.resolve(UpdateEditorPodsUseCase);
+
+    const {
+        handleSubmit,
+    } = useForm();
+
+    async function onSubmit() {
+        const result = await updateEditorPodsUseCase.handle(null);
+
+        if (result) {
+            setPods([]);
+            useInvalidateQuery([GetEditorPodsUseCase.name]);
+            useInvalidateQuery([GetMetricsUseCase.name]);
+
+            onClose();
+        }
+
+        return result;
+    }
+
+    return (
+        <Box m={4}>
+            <Typography
+                sx={{
+                    fontSize: 24,
+                    fontWeight: 600,
+                    mb: 3,
+                }}
+            >
+                Delete squares?
+            </Typography>
+
+            <Column mb={4}>
+                <Typography variant='subtitle1'>
+                    You are about to remove the 4 squares from the platform.
+                    This action cannot be undone and will reset all content linked to these squares.
+                </Typography>
+            </Column>
+
+            <Row justifyContent='space-between'>
+                <Button
+                    color='primary'
+                    onClick={onClose}
+                    size='large'
+                    variant='outlined'
+                >
+                    Cancel
+                </Button>
+
+                <SubmitButton
+                    handleSubmit={handleSubmit}
+                    onSubmit={onSubmit}
+                    size='large'
+                    sx={{
+                        background: themePalette.error.main,
+                        ':hover': {
+                            background: themePalette.error.light,
+                        },
+                    }}
+                    variant='contained'
+                >
+                    Delete
+                </SubmitButton>
+            </Row>
+        </Box>
+    );
+}

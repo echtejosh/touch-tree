@@ -1,0 +1,54 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./src",
+        "paths": {
+            "application/*": [
+                "application/*"
+            ],
+            "domain/*": [
+                "domain/*"
+            ],
+            "infrastructure/*": [
+                "infrastructure/*"
+            ],
+            "presentation/*": [
+                "presentation/*"
+            ],
+            "utils/*": [
+                "utils/*"
+            ],
+        },
+        "target": "es5",
+        "lib": [
+            "dom",
+            "dom.iterable",
+            "esnext"
+        ],
+        "strict": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "noImplicitThis": true,
+        "alwaysStrict": true,
+        "strictBindCallApply": true,
+        "strictPropertyInitialization": true,
+        "allowJs": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "jsx": "react-jsx"
+    },
+    "include": [
+        "./src",
+        "*.config.ts",
+        "*.d.ts",
+        "node_modules/vitest/globals.d.ts"
+    ]
+}
